@@ -1,0 +1,4 @@
+NAME = "Sims XML Auto Translator"
+VERSION = "0.0.1"
+BUILD_DATE = 1687644876.783305
+AUTHOR = "UmaruMG"
