@@ -30,6 +30,37 @@ Click on the "Export XML" button to start the translation. The translated XML fi
 
 For a detailed tutorial on how to extract the XML from Sims 4 mods and use this tool for translations, please refer to this [guide](https://www.patreon.com/posts/tutorial-for-way-40094277).
 
+# Build
+This Programm has been tested with Python 10 to 11
+
+Open a new Console (cmd, bash, etc.) and navigate to the Folder where the Source Code is.
+
+Then install the requirements using:
+```bash
+pip install -r requirements.txt
+```
+
+To execute the Programm run:
+```bash
+python gui.py
+```
+
+## Compile to an .exe
+
+To Compile the Code into a single .exe file you first have to install `pyinstaller` from pip:
+```bash
+pip install pyinstaller
+```
+
+After that make sure the `Scripts` Path is in your PATH Environment and maybe restart your console,
+
+than you can execute this Command:
+```bash
+pyinstaller --icon=icon.ico --name="Sims XML Auto Translator" --add-data="icon.ico;." --onefile gui.py
+```
+
+The compiled .exe file will be in the newly created `dist` folder.
+
 # Limitations
 This tool relies on the DeepL API for translations. Please be aware of the limitations and costs associated with the usage of the DeepL API. Free DeepL API users may encounter restrictions on the volume of text that can be translated.
 
