@@ -7,10 +7,9 @@ import xml.etree.ElementTree as ET
 import utils
 
 API_KEY = ''
-config_file = 'config.cfg'
 
-API_URL = "https://api.deepl.com/v2/translate"
-API_URL_FREE = "https://api-free.deepl.com/v2/translate"
+API_URL = "https://api.deepl.com/v2/"
+API_URL_FREE = "https://api-free.deepl.com/v2/"
 
 def set_config(key):
     # Function to set the API key in the config file
@@ -23,6 +22,36 @@ def get_key():
     # Function to get the API key from the config file
     global API_KEY
     API_KEY = utils.getValue("key")
+
+def usage():
+    # get key
+    get_key()
+
+    # retrieve API Key
+    auth_key = str(API_KEY)
+
+    api_url = API_URL + "usage"
+    if ":fx" in auth_key:
+        api_url = API_URL_FREE + "usage"
+
+    response = requests.get(
+        api_url,
+        headers={'Authorization': f'DeepL-Auth-Key {auth_key}'}  # include API Key in the headers
+    )
+
+    if response.status_code == 200:
+        json = response.json()
+        character_count = json['character_count']
+        character_limit = json['character_limit']
+        return {"type": "info", "message": f"Your current Usage:\nUsed: {character_count}\nLimit: {character_limit}", "invalid": False}
+    elif response.status_code == 403:
+        return {"type": "error", "message": f"Invalid API-Key, please update it in the Settings. Error: {response.status_code}", "invalid": True}
+    elif response.status_code == 456:
+        return {"type": "error", "message": f"Your Quota has exceeded! Please Upgrade to DeepL API Pro or use another API Key. Error: {response.status_code}", "invalid": False}
+    elif response.status_code == 500:
+        return {"type": "error", "message": f"There was a temporary problem with the DeepL Service. Please Try agin in a few seconds. Error: {response.status_code}", "invalid": False}
+    else:
+        return {"type": "error", "message": f"There was an error while using the API: {response.status_code} {response.reason}", "invalid": False}
 
 # define function for translation
 def translate(input, output, source_lang, target_lang, single):
@@ -40,9 +69,9 @@ def translate(input, output, source_lang, target_lang, single):
     # retrieve API Key
     auth_key = API_KEY
 
-    api_url = API_URL
+    api_url = API_URL + "translate"
     if ":fx" in auth_key:
-        api_url = API_URL_FREE
+        api_url = API_URL_FREE + "translate"
 
     if not single:
         # collect all text strings in a list with newlines
@@ -65,11 +94,15 @@ def translate(input, output, source_lang, target_lang, single):
             combined_text = combined_text.replace(placeholder, temp_placeholder)
             temp_placeholders[temp_placeholder] = placeholder
 
+        data = {'text': combined_text, 'source_lang': source_lang, 'target_lang': target_lang, 'split_sentences': 1, 'tag_handling': 'xml'}  # provide text string and languages in the data
+        if source_lang == "AT":
+            data = {'text': combined_text, 'target_lang': target_lang, 'split_sentences': 1, 'tag_handling': 'xml'}  # provide text string and languages in the data
+
         # send a POST request to DeepL API to translate the text string
         response = requests.post(
             api_url,
             headers={'Authorization': f'DeepL-Auth-Key {auth_key}'},  # include API Key in the headers
-            data={'text': combined_text, 'source_lang': source_lang, 'target_lang': target_lang, 'split_sentences': 1, 'tag_handling': 'xml'}  # provide text string and languages in the data
+            data=data
         )
 
         # if the request was successful
@@ -116,11 +149,15 @@ def translate(input, output, source_lang, target_lang, single):
                 # store temporary placeholder and its corresponding original placeholder in the dictionary
                 temp_placeholders[temp_placeholder] = placeholder
 
+            data = {'text': modified_text, 'source_lang': source_lang, 'target_lang': target_lang, 'split_sentences': 1, 'tag_handling': 'xml'}  # provide text string and languages in the data
+            if source_lang == "AT":
+                data = {'text': modified_text, 'target_lang': target_lang, 'split_sentences': 1, 'tag_handling': 'xml'}  # provide text string and languages in the data
+
             # send a POST request to DeepL API to translate the text string
             response = requests.post(
                 api_url,
                 headers={'Authorization': f'DeepL-Auth-Key {auth_key}'},  # include API Key in the headers
-                data={'text': modified_text, 'source_lang': source_lang, 'target_lang': target_lang, 'split_sentences': 1, 'tag_handling': 'xml'}  # provide text string and languages in the data
+                data=data
             )
 
             # if the request was successful

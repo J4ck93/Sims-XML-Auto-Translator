@@ -8,6 +8,7 @@ import main
 import sys
 import about
 import utils
+import webbrowser
 
 def show_about():
     about.show_window()
@@ -28,6 +29,16 @@ def show_options():
                 dropdown_2.config(state="disabled")
             else:
                 dropdown_2.config(state="normal")
+            if option["detectSourceLang"]:
+                option_1.set(source_languages["AT"])
+                dropdown_1.config(state="disabled")
+            else:
+                option_1.set(source_languages[option["sourceLang"]])
+                dropdown_1.config(state="normal")
+            usage = main.usage()
+            if (usage["invalid"]):
+                show_messagebox(usage["message"], usage["type"])
+                api_key_box()
 
     options.show_window(handle_option)
 
@@ -58,6 +69,12 @@ def translate_text():
         translated = main.translate(input_file, output_file, utils.get_keys_from_value(source_languages, selected_source_language)[0], utils.get_keys_from_value(target_languages, selected_target_language)[0], utils.getValue("reqLinePerLine"))
         show_messagebox(translated["message"], translated["type"])
 
+def check_usage():
+    usage = main.usage()
+    show_messagebox(usage["message"], usage["type"])
+    if (usage["invalid"]):
+        api_key_box()
+
 # Function to enable or disable the confirm button based on user input
 def check_confirm_button_state():
     if file_path_1.get() and option_1.get() != "Source Language" and option_2.get() != "Target Language":
@@ -74,6 +91,16 @@ def show_messagebox(message, type):
         messagebox.showwarning("Warning", message)
     if type == 'info':
         messagebox.showinfo("Info", message)
+
+def open_url(url):
+    # Function to open a URL in the default web browser
+    webbrowser.open_new(url)
+
+def open_github():
+    open_url("https://github.com/UmaruMG/Sims-XML-Auto-Translator/releases")
+
+def open_help():
+    open_url("https://www.patreon.com/posts/automatically-4-87611500")
     
 # Create the main application window
 window = tk.Tk()
@@ -90,13 +117,14 @@ file_menu.add_command(label="Exit", command=window.destroy)
 menubar.add_cascade(label="File", menu=file_menu)
 
 options_menu = tk.Menu(menubar, tearoff=0)
+options_menu.add_command(label="Check Usage", command=check_usage)
 options_menu.add_command(label="Settings", command=show_options)
 
 menubar.add_cascade(label="Options", menu=options_menu)
 
 help_menu = tk.Menu(menubar, tearoff=0)
-help_menu.add_command(label="Check for Updates")
-help_menu.add_command(label="Help")
+help_menu.add_command(label="Check for Updates", command=open_github)
+help_menu.add_command(label="Help", command=open_help)
 help_menu.add_command(label="About", command=show_about)
 
 menubar.add_cascade(label="Help", menu=help_menu)
@@ -119,10 +147,27 @@ alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenhei
 window.geometry(alignstr)
 window.resizable(width=False, height=False)  # Make the window not resizable
 
+def api_key_box():
+    while True:
+        key = simpledialog.askstring(title="What is the API Key?", prompt="API Key: ")
+        if key is None:
+            sys.exit()
+        
+        main.set_config(key)
+        usage = main.usage()
+        if usage["invalid"]:
+            show_messagebox(usage["message"], usage["type"])
+        else:
+            break
+
 # Check if the configuration file exists, prompt for API key if not
 if not utils.check_if_config():
-    key = simpledialog.askstring(title="What is the API Key?", prompt="API Key: ")
-    main.set_config(key)
+    api_key_box()
+
+usage = main.usage()
+if (usage["invalid"]):
+    show_messagebox(usage["message"], usage["type"])
+    api_key_box()
 
 # Initialize variable for storing the file path of the input file
 file_path_1 = tk.StringVar()
@@ -178,6 +223,17 @@ if utils.getValue("remSourceLang"):
 else:
     dropdown_1.config(state="normal")
 
+# Create button for exporting the translated XML file
+button = tk.Button(window, text="Export XML", command=translate_text, state="disabled")
+button.place(x=160, y=20, width=100, height=30)
+
+if utils.getValue("detectSourceLang"):
+    option_1.set(source_languages["AT"])
+    dropdown_1.config(state="disabled")
+else:
+    option_1.set(source_languages[utils.getValue("sourceLang")])
+    dropdown_1.config(state="normal")
+
 dropdown_2 = tk.OptionMenu(window, option_2, *language_options["Target Language"].values())
 dropdown_2.place(x=160, y=90, width=100, height=30)
 
@@ -192,10 +248,6 @@ label_1.place(x=20, y=60, width=100, height=30)
 
 label_2 = tk.Label(window, text="Output Language")
 label_2.place(x=160, y=60, width=100, height=30)
-
-# Create button for exporting the translated XML file
-button = tk.Button(window, text="Export XML", command=translate_text, state="disabled")
-button.place(x=160, y=20, width=100, height=30)
 
 # Run the application
 window.mainloop()

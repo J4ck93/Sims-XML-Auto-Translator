@@ -1,5 +1,6 @@
 import tkinter as tk
 import utils
+from idlelib.tooltip import Hovertip
 
 def show_window(callback):
     # Function to create and display the settings window
@@ -13,13 +14,14 @@ def show_window(callback):
             "key": entryvar1.get(),
             "remSourceLang": boolvar1.get(),
             "remTargetLang": boolvar2.get(),
-            "reqLinePerLine": boolvar3.get(),
+            "detectSourceLang": boolvar3.get(),
+            "reqLinePerLine": boolvar4.get(),
             "sourceLang": utils.get_keys_from_value(source_languages, selected_source_language)[0],
             "targetLang": utils.get_keys_from_value(target_languages, selected_target_language)[0]
         }
         utils.saveConfig(json_stuff)
-        callback(json_stuff)
         window.destroy()
+        callback(json_stuff)
 
     def remSource_clicked():
         # Function to handle the "Remember Source Language" checkbox
@@ -42,7 +44,7 @@ def show_window(callback):
 
     # Set window size and position
     width = 310
-    height = 150
+    height = 180
     screenwidth = window.winfo_screenwidth()
     screenheight = window.winfo_screenheight()
     alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
@@ -73,10 +75,17 @@ def show_window(callback):
     checkbutton2.place(anchor="nw", x=10, y=70)
 
     boolvar3 = tk.BooleanVar()
-    boolvar3.set(utils.getValue("reqLinePerLine"))
+    boolvar3.set(utils.getValue("detectSourceLang"))
     checkbutton3 = tk.Checkbutton(window)
-    checkbutton3.configure(text='Request line per line', variable=boolvar3)
+    checkbutton3.configure(text='Auto Detect Source Langauge', variable=boolvar3)
     checkbutton3.place(anchor="nw", x=10, y=100)
+
+    boolvar4 = tk.BooleanVar()
+    boolvar4.set(utils.getValue("reqLinePerLine"))
+    checkbutton4 = tk.Checkbutton(window)
+    checkbutton4.configure(text='Request line per line', variable=boolvar4)
+    checkbutton4.place(anchor="nw", x=10, y=130)
+    Hovertip(checkbutton4, 'Translates each line of the xml file individually.')
 
     # Define dictionaries of source and target languages
     source_languages = utils.source_languages
@@ -102,10 +111,10 @@ def show_window(callback):
 
     button1 = tk.Button(window)
     button1.configure(text='Cancel', command=window.destroy)
-    button1.place(anchor="nw", x=210, y=110)
+    button1.place(anchor="nw", x=210, y=140)
 
     button2 = tk.Button(window)
     button2.configure(text='Ok', command=saveValues)
-    button2.place(anchor="nw", x=270, y=110)
+    button2.place(anchor="nw", x=270, y=140)
 
     window.mainloop()

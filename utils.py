@@ -9,6 +9,7 @@ def get_keys_from_value(d, val):
     return [k for k, v in d.items() if v == val]
 
 source_languages = {
+    'AT': 'Auto',
     'CS': 'Čeština',
     'DA': 'Dansk',
     'DE': 'Deutsch',
@@ -48,12 +49,25 @@ target_languages = {
     'KO': '한국어'
 }
 
+json_string = {
+    "key": "",
+    "single": False,
+    "remSourceLang": False,
+    "sourceLang": "EN",
+    "remTargetLang": False,
+    "targetLang": "EN-US",
+    "detectSourceLang": False,
+    "reqLinePerLine": False
+}
+
 def getValue(key):
     # Retrieves the value associated with the given 'key' from the JSON data
     global json_data
     if not json_data:
         with open(config_file, 'r') as file:
             json_data = json.load(file)
+    if json_data.get(key) is None:
+        setValue(key, json_string[key])
     return json_data[key]
 
 def setValue(key, value):
@@ -77,15 +91,6 @@ def saveConfig(jsondata=None):
 
 def genConfig():
     # Generates a default configuration file with predefined settings
-    json_string = {
-        "key": "",
-        "single": False,
-        "remSourceLang": False,
-        "sourceLang": "EN",
-        "remTargetLang": False,
-        "targetLang": "EN-US",
-        "reqLinePerLine": False
-    }
     with open(config_file, 'w') as file:
         json.dump(json_string, file)
 
