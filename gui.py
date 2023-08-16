@@ -32,6 +32,8 @@ def show_options():
             if option["detectSourceLang"]:
                 option_1.set(source_languages["AT"])
                 dropdown_1.config(state="disabled")
+            elif option["remSourceLang"]:
+                dropdown_1.config(state="disabled")
             else:
                 option_1.set(source_languages[option["sourceLang"]])
                 dropdown_1.config(state="normal")
@@ -229,6 +231,8 @@ button.place(x=160, y=20, width=100, height=30)
 
 if utils.getValue("detectSourceLang"):
     option_1.set(source_languages["AT"])
+    dropdown_1.config(state="disabled")
+elif utils.getValue("remSourceLang"):
     dropdown_1.config(state="disabled")
 else:
     option_1.set(source_languages[utils.getValue("sourceLang")])

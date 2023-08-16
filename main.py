@@ -77,7 +77,11 @@ def translate(input, output, source_lang, target_lang, single):
         # collect all text strings in a list with newlines
         text_strings = []
         for definition in text_string_definitions:
+            hex_replacement2 = r"\x0a"
+            hex_replacement3 = r"\x0d"
             text_string = definition.get('TextString')
+            text_string = text_string.replace("\n", hex_replacement2)
+            text_string = text_string.replace("\r", hex_replacement3)
             text_strings.append(text_string)
 
         # join all text strings with newlines
@@ -120,6 +124,10 @@ def translate(input, output, source_lang, target_lang, single):
             for i, definition in enumerate(text_string_definitions):
                 # get the translated text string
                 translated_text = translated_texts[i]
+                hex_replacement2 = bytes(r"\x0a", "utf-8").decode("unicode-escape")
+                hex_replacement3 = bytes(r"\x0d", "utf-8").decode("unicode-escape")
+                translated_text = translated_text.replace("\\x0a", hex_replacement2)
+                translated_text = translated_text.replace("\\x0d", hex_replacement3)
                 # update 'TextString' attribute with the translated text string
                 definition.set('TextString', translated_text)
         elif response.status_code == 456:
@@ -175,7 +183,23 @@ def translate(input, output, source_lang, target_lang, single):
                 return {"type": "error", "message": f"There was an error while using the API: {response.status_code} {response.reason}"}
 
     # write the XML tree into the output file, include XML declaration and use UTF-8 encoding
-    tree.write(output, encoding='utf-8', xml_declaration=True)
+    #tree.write(output, encoding='utf-8', xml_declaration=True, method="xml", short_empty_elements=True)
+    temp_file_path = "temp.xml"
+    tree.write(temp_file_path, encoding='utf-8', xml_declaration=True, method="xml", short_empty_elements=True)
+
+    with open(temp_file_path, "r", encoding="utf-8") as temp_file:
+        xml_content = temp_file.read()
+        xml_content = xml_content.replace("&#10;", "&#xA;")
+        xml_content = xml_content.replace("&#13;", "&#xD;")
+
+    with open(temp_file_path, "w", encoding="utf-8") as temp_file:
+        temp_file.write(xml_content)
+
+    with open(temp_file_path, "r", encoding="utf-8") as temp_file:
+        with open(output, "w", encoding="utf-8") as final_output:
+            final_output.write(temp_file.read())
+
+    os.remove(temp_file_path)
     if not os.path.isfile(output):
         return {"type": "error", "message": f"The File was not Found at {output}"}
     return {"type": "info", "message": f"The File Generated successfully at {output}"}
