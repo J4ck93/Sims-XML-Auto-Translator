@@ -1,4 +1,0 @@
-NAME = "Sims XML Auto Translator"
-VERSION = "1.1.1"
-BUILD_DATE = 1692209338.858689
-AUTHOR = "UmaruMG"
