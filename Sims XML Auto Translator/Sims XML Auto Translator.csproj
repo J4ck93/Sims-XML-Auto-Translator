@@ -7,6 +7,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>UmaruMG</Authors>
+	<VersionPrefix>1.2.3</VersionPrefix>
+	<SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Net.Http.Json;
 
 namespace Sims_XML_Auto_Translator
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -52,6 +50,12 @@ namespace Sims_XML_Auto_Translator
             }
 
             return languages.ToArray();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.ShowDialog();
         }
     }
 

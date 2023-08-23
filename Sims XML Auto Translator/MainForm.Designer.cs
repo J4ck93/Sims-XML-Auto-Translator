@@ -1,6 +1,6 @@
 ﻿namespace Sims_XML_Auto_Translator
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -79,24 +79,24 @@
             // importXMLToolStripMenuItem
             // 
             importXMLToolStripMenuItem.Name = "importXMLToolStripMenuItem";
-            importXMLToolStripMenuItem.Size = new Size(137, 22);
+            importXMLToolStripMenuItem.Size = new Size(180, 22);
             importXMLToolStripMenuItem.Text = "Import XML";
             // 
             // exportXMLToolStripMenuItem
             // 
             exportXMLToolStripMenuItem.Name = "exportXMLToolStripMenuItem";
-            exportXMLToolStripMenuItem.Size = new Size(137, 22);
+            exportXMLToolStripMenuItem.Size = new Size(180, 22);
             exportXMLToolStripMenuItem.Text = "Export XML";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(134, 6);
+            toolStripMenuItem1.Size = new Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(137, 22);
+            exitToolStripMenuItem.Size = new Size(180, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -110,13 +110,13 @@
             // checkUsageToolStripMenuItem
             // 
             checkUsageToolStripMenuItem.Name = "checkUsageToolStripMenuItem";
-            checkUsageToolStripMenuItem.Size = new Size(142, 22);
+            checkUsageToolStripMenuItem.Size = new Size(180, 22);
             checkUsageToolStripMenuItem.Text = "Check Usage";
             // 
             // settingsToolStripMenuItem
             // 
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(142, 22);
+            settingsToolStripMenuItem.Size = new Size(180, 22);
             settingsToolStripMenuItem.Text = "Settings";
             // 
             // helpToolStripMenuItem
@@ -129,25 +129,26 @@
             // checkForUpdateToolStripMenuItem
             // 
             checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            checkForUpdateToolStripMenuItem.Size = new Size(166, 22);
+            checkForUpdateToolStripMenuItem.Size = new Size(180, 22);
             checkForUpdateToolStripMenuItem.Text = "Check for Update";
             // 
             // helpToolStripMenuItem1
             // 
             helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            helpToolStripMenuItem1.Size = new Size(166, 22);
+            helpToolStripMenuItem1.Size = new Size(180, 22);
             helpToolStripMenuItem1.Text = "Help";
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(163, 6);
+            toolStripMenuItem2.Size = new Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(166, 22);
+            aboutToolStripMenuItem.Size = new Size(180, 22);
             aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // button2
             // 
