@@ -38,12 +38,12 @@ namespace Sims_XML_Auto_Translator.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool rememberSourceLang {
+        public bool rememberSourceLanguage {
             get {
-                return ((bool)(this["rememberSourceLang"]));
+                return ((bool)(this["rememberSourceLanguage"]));
             }
             set {
-                this["rememberSourceLang"] = value;
+                this["rememberSourceLanguage"] = value;
             }
         }
         
@@ -104,6 +104,24 @@ namespace Sims_XML_Auto_Translator.Properties {
             }
             set {
                 this["requestLinePerLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EN")]
+        public string initalSourceLanguage {
+            get {
+                return ((string)(this["initalSourceLanguage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EN-US")]
+        public string initalTargetLanguage {
+            get {
+                return ((string)(this["initalTargetLanguage"]));
             }
         }
     }

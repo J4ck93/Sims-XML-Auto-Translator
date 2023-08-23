@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             button1 = new Button();
             menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            importXMLToolStripMenuItem = new ToolStripMenuItem();
-            exportXMLToolStripMenuItem = new ToolStripMenuItem();
+            fileToolStrip = new ToolStripMenuItem();
+            importToolStrip = new ToolStripMenuItem();
+            exportToolStrip = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripSeparator();
-            exitToolStripMenuItem = new ToolStripMenuItem();
-            optionsToolStripMenuItem = new ToolStripMenuItem();
-            checkUsageToolStripMenuItem = new ToolStripMenuItem();
-            settingsToolStripMenuItem = new ToolStripMenuItem();
-            helpToolStripMenuItem = new ToolStripMenuItem();
-            checkForUpdateToolStripMenuItem = new ToolStripMenuItem();
-            helpToolStripMenuItem1 = new ToolStripMenuItem();
+            exitToolStrip = new ToolStripMenuItem();
+            optionsToolStrip = new ToolStripMenuItem();
+            usageToolStrip = new ToolStripMenuItem();
+            settingToolStrip = new ToolStripMenuItem();
+            helpToolStripMenu = new ToolStripMenuItem();
+            updateToolStrip = new ToolStripMenuItem();
+            helpToolStrip = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripSeparator();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStrip = new ToolStripMenuItem();
             button2 = new Button();
             label1 = new Label();
             label2 = new Label();
@@ -62,93 +63,99 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, optionsToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStrip, optionsToolStrip, helpToolStripMenu });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(280, 24);
             menuStrip1.TabIndex = 4;
             menuStrip1.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // fileToolStrip
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importXMLToolStripMenuItem, exportXMLToolStripMenuItem, toolStripMenuItem1, exitToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
-            fileToolStripMenuItem.Text = "File";
+            fileToolStrip.DropDownItems.AddRange(new ToolStripItem[] { importToolStrip, exportToolStrip, toolStripMenuItem1, exitToolStrip });
+            fileToolStrip.Name = "fileToolStrip";
+            fileToolStrip.Size = new Size(37, 20);
+            fileToolStrip.Text = "File";
             // 
-            // importXMLToolStripMenuItem
+            // importToolStrip
             // 
-            importXMLToolStripMenuItem.Name = "importXMLToolStripMenuItem";
-            importXMLToolStripMenuItem.Size = new Size(180, 22);
-            importXMLToolStripMenuItem.Text = "Import XML";
+            importToolStrip.Name = "importToolStrip";
+            importToolStrip.Size = new Size(180, 22);
+            importToolStrip.Text = "Import XML";
+            importToolStrip.Click += importToolStrip_Click;
             // 
-            // exportXMLToolStripMenuItem
+            // exportToolStrip
             // 
-            exportXMLToolStripMenuItem.Name = "exportXMLToolStripMenuItem";
-            exportXMLToolStripMenuItem.Size = new Size(180, 22);
-            exportXMLToolStripMenuItem.Text = "Export XML";
+            exportToolStrip.Name = "exportToolStrip";
+            exportToolStrip.Size = new Size(180, 22);
+            exportToolStrip.Text = "Export XML";
+            exportToolStrip.Click += exportToolStrip_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(177, 6);
             // 
-            // exitToolStripMenuItem
+            // exitToolStrip
             // 
-            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(180, 22);
-            exitToolStripMenuItem.Text = "Exit";
-            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            exitToolStrip.Name = "exitToolStrip";
+            exitToolStrip.Size = new Size(180, 22);
+            exitToolStrip.Text = "Exit";
+            exitToolStrip.Click += exitToolStrip_Click;
             // 
-            // optionsToolStripMenuItem
+            // optionsToolStrip
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { checkUsageToolStripMenuItem, settingsToolStripMenuItem });
-            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            optionsToolStripMenuItem.Size = new Size(61, 20);
-            optionsToolStripMenuItem.Text = "Options";
+            optionsToolStrip.DropDownItems.AddRange(new ToolStripItem[] { usageToolStrip, settingToolStrip });
+            optionsToolStrip.Name = "optionsToolStrip";
+            optionsToolStrip.Size = new Size(61, 20);
+            optionsToolStrip.Text = "Options";
             // 
-            // checkUsageToolStripMenuItem
+            // usageToolStrip
             // 
-            checkUsageToolStripMenuItem.Name = "checkUsageToolStripMenuItem";
-            checkUsageToolStripMenuItem.Size = new Size(180, 22);
-            checkUsageToolStripMenuItem.Text = "Check Usage";
+            usageToolStrip.Name = "usageToolStrip";
+            usageToolStrip.Size = new Size(180, 22);
+            usageToolStrip.Text = "Check Usage";
+            usageToolStrip.Click += usageToolStrip_Click;
             // 
-            // settingsToolStripMenuItem
+            // settingToolStrip
             // 
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(180, 22);
-            settingsToolStripMenuItem.Text = "Settings";
+            settingToolStrip.Name = "settingToolStrip";
+            settingToolStrip.Size = new Size(180, 22);
+            settingToolStrip.Text = "Settings";
+            settingToolStrip.Click += settingToolStrip_Click;
             // 
-            // helpToolStripMenuItem
+            // helpToolStripMenu
             // 
-            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { checkForUpdateToolStripMenuItem, helpToolStripMenuItem1, toolStripMenuItem2, aboutToolStripMenuItem });
-            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size(44, 20);
-            helpToolStripMenuItem.Text = "Help";
+            helpToolStripMenu.DropDownItems.AddRange(new ToolStripItem[] { updateToolStrip, helpToolStrip, toolStripMenuItem2, aboutToolStrip });
+            helpToolStripMenu.Name = "helpToolStripMenu";
+            helpToolStripMenu.Size = new Size(44, 20);
+            helpToolStripMenu.Text = "Help";
             // 
-            // checkForUpdateToolStripMenuItem
+            // updateToolStrip
             // 
-            checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            checkForUpdateToolStripMenuItem.Size = new Size(180, 22);
-            checkForUpdateToolStripMenuItem.Text = "Check for Update";
+            updateToolStrip.Name = "updateToolStrip";
+            updateToolStrip.Size = new Size(166, 22);
+            updateToolStrip.Text = "Check for Update";
+            updateToolStrip.Click += updateToolStrip_Click;
             // 
-            // helpToolStripMenuItem1
+            // helpToolStrip
             // 
-            helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            helpToolStripMenuItem1.Size = new Size(180, 22);
-            helpToolStripMenuItem1.Text = "Help";
+            helpToolStrip.Name = "helpToolStrip";
+            helpToolStrip.Size = new Size(166, 22);
+            helpToolStrip.Text = "Help";
+            helpToolStrip.Click += helpToolStrip_Click;
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(177, 6);
+            toolStripMenuItem2.Size = new Size(163, 6);
             // 
-            // aboutToolStripMenuItem
+            // aboutToolStrip
             // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
-            aboutToolStripMenuItem.Text = "About";
-            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            aboutToolStrip.Name = "aboutToolStrip";
+            aboutToolStrip.Size = new Size(166, 22);
+            aboutToolStrip.Text = "About";
+            aboutToolStrip.Click += aboutToolStrip_Click;
             // 
             // button2
             // 
@@ -196,7 +203,7 @@
             cbTargetLanguage.Size = new Size(96, 23);
             cbTargetLanguage.TabIndex = 3;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -210,9 +217,10 @@
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
-            Name = "Form1";
-            Text = "Form1";
-            Load += Form1_Load;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "MainForm";
+            Text = "Sims XML Auto Translator";
+            Load += MainForm_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -222,19 +230,19 @@
         #endregion
         private Button button1;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem importXMLToolStripMenuItem;
-        private ToolStripMenuItem exportXMLToolStripMenuItem;
+        private ToolStripMenuItem fileToolStrip;
+        private ToolStripMenuItem importToolStrip;
+        private ToolStripMenuItem exportToolStrip;
         private ToolStripSeparator toolStripMenuItem1;
-        private ToolStripMenuItem exitToolStripMenuItem;
-        private ToolStripMenuItem optionsToolStripMenuItem;
-        private ToolStripMenuItem checkUsageToolStripMenuItem;
-        private ToolStripMenuItem settingsToolStripMenuItem;
-        private ToolStripMenuItem helpToolStripMenuItem;
-        private ToolStripMenuItem checkForUpdateToolStripMenuItem;
-        private ToolStripMenuItem helpToolStripMenuItem1;
+        private ToolStripMenuItem exitToolStrip;
+        private ToolStripMenuItem optionsToolStrip;
+        private ToolStripMenuItem usageToolStrip;
+        private ToolStripMenuItem settingToolStrip;
+        private ToolStripMenuItem helpToolStripMenu;
+        private ToolStripMenuItem updateToolStrip;
+        private ToolStripMenuItem helpToolStrip;
         private ToolStripSeparator toolStripMenuItem2;
-        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStrip;
         private Button button2;
         private Label label1;
         private Label label2;
