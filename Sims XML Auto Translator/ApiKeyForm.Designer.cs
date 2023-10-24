@@ -85,6 +85,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ApiKeyForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "What is the API Key?";
             ResumeLayout(false);
             PerformLayout();

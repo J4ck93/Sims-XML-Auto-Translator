@@ -20,23 +20,27 @@ namespace Sims_XML_Auto_Translator
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbApiKey.Text))
-            {
-                MessageBox.Show("Please enter an API Key!");
-            } else if (!string.IsNullOrEmpty(Properties.Settings.Default.apiKey))
-            {
-                Close();
-            }
-            tbApiKey.Text = "";
+            Close();
         }
 
         private async void btnOk_Click(object sender, EventArgs e)
         {
-            bool result = await DeepLSims.CheckApiKey(tbApiKey.Text);
-            if (result)
+            if (string.IsNullOrEmpty(tbApiKey.Text))
             {
-                DialogResult = DialogResult.OK;
+                MessageBox.Show("Please enter an API Key!");
+            }
+            else if (!string.IsNullOrEmpty(Properties.Settings.Default.apiKey))
+            {
                 Close();
+            }
+            else
+            {
+                bool result = await DeepLSims.CheckApiKey(tbApiKey.Text);
+                if (result)
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
             }
         }
     }

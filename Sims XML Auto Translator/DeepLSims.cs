@@ -20,6 +20,7 @@ namespace Sims_XML_Auto_Translator
                 if (usage.Character != null)
                 {
                     Properties.Settings.Default.apiKey = apiKey;
+                    Properties.Settings.Default.Save();
                 }
                 return true;
             }

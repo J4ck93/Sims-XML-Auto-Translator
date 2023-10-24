@@ -154,6 +154,7 @@
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SettingsForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Settings";
             Load += SettingsForm_Load;
             ResumeLayout(false);

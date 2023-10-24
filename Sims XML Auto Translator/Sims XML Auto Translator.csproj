@@ -8,9 +8,10 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Authors>UmaruMG</Authors>
-	<VersionPrefix>1.2.3</VersionPrefix>
+	<VersionPrefix>2.0.0</VersionPrefix>
 	<SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
 	<ApplicationIcon>icon.ico</ApplicationIcon>
+	<PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>

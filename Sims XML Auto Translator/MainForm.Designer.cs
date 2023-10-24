@@ -222,6 +222,7 @@
             HelpButton = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Sims XML Auto Translator";
             Load += MainForm_Load;
             menuStrip1.ResumeLayout(false);
