@@ -1,12 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using DeepL;
+using DeepL.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Sims_XML_Auto_Translator
 {
@@ -110,6 +115,126 @@ namespace Sims_XML_Auto_Translator
             }
 
             return languages.ToArray();
+        }
+
+        public static async Task GetAllTextStringDefinitionAsync(XmlDocument document, string saveFile, ComboBox cbSourceLanguage, ComboBox cbTargetLanguage)
+        {
+            XmlNodeList textStringNodes = document.SelectNodes("//TextStringDefinition");
+
+            List<string> textStrings = new List<string>();
+
+            foreach (XmlNode textStringNode in textStringNodes)
+            {
+                XmlAttribute textStringAttribute = textStringNode.Attributes["TextString"];
+
+                if (textStringAttribute != null)
+                {
+                    string textStringValue = textStringAttribute.Value;
+
+                    textStringValue = textStringValue.Replace("\n", @"\x0a");
+                    textStringValue = textStringValue.Replace("\r", @"\x0d");
+
+                    textStrings.Add(textStringValue);
+                }
+            }
+
+            string[] translatedTexts = new string[] { };
+
+            if (Properties.Settings.Default.requestLinePerLine)
+            {
+                foreach (string textString in textStrings)
+                {
+                    string modifiedText = textString;
+                    List<string> placeholders = new List<string>();
+                    string pattern = @"\{[^}]+\}";
+                    foreach (Match match in Regex.Matches(modifiedText, pattern))
+                    {
+                        placeholders.Add(match.Value);
+                    }
+
+                    Dictionary<string, string> tempPlaceholders = new Dictionary<string, string>();
+                    int index = 0;
+
+                    foreach (string placeholder in placeholders)
+                    {
+                        string tempPlaceholder = $"__TEMPP_{index}__";
+                        modifiedText = modifiedText.Replace(placeholder, tempPlaceholder);
+                        tempPlaceholders[tempPlaceholder] = placeholder;
+                        index++;
+                    }
+
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.apiKey))
+                    {
+                        string translated = await DeepLSims.TranslateCombinedText(Properties.Settings.Default.apiKey, modifiedText, cbSourceLanguage, cbTargetLanguage);
+                        foreach (var kvp in tempPlaceholders)
+                        {
+                            translated = translated.Replace(kvp.Key, kvp.Value);
+                        }
+
+                        translatedTexts  = translatedTexts.Append(translated).ToArray();
+                    }
+                }
+            }
+            else
+            {
+                string combinedText = string.Join("\n", textStrings);
+
+                List<string> placeholders = new List<string>();
+                string pattern = @"\{[^}]+\}";
+                foreach (Match match in Regex.Matches(combinedText, pattern))
+                {
+                    placeholders.Add(match.Value);
+                }
+
+                Dictionary<string, string> tempPlaceholders = new Dictionary<string, string>();
+                int index = 0;
+
+                foreach (string placeholder in placeholders)
+                {
+                    string tempPlaceholder = $"__TEMPP_{index}__";
+                    combinedText = combinedText.Replace(placeholder, tempPlaceholder);
+                    tempPlaceholders[tempPlaceholder] = placeholder;
+                    index++;
+                }
+
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.apiKey))
+                {
+                    string translated = await DeepLSims.TranslateCombinedText(Properties.Settings.Default.apiKey, combinedText, cbSourceLanguage, cbTargetLanguage);
+                    foreach (var kvp in tempPlaceholders)
+                    {
+                        translated = translated.Replace(kvp.Key, kvp.Value);
+                    }
+
+                    translatedTexts = translated.Split('\n');
+                }
+            }
+
+            int textIndex = 0;
+
+            foreach (XmlNode textStringNode in textStringNodes)
+            {
+                if (textIndex < translatedTexts.Length)
+                {
+                    string translatedText = translatedTexts[textIndex];
+
+                    translatedText = translatedText.Replace(@"\x0a", "\n");
+                    translatedText = translatedText.Replace(@"\x0d", "\r");
+
+                    XmlAttribute textStringAttribute = textStringNode.Attributes["TextString"];
+                    if (textStringAttribute != null)
+                    {
+                        textStringAttribute.Value = translatedText;
+                    }
+
+                    textIndex++;
+                }
+            }
+
+            using (XmlTextWriter writer = new XmlTextWriter(saveFile, Encoding.UTF8))
+            {
+                writer.Formatting = System.Xml.Formatting.Indented;
+                document.WriteTo(writer);
+            }
         }
     }
 

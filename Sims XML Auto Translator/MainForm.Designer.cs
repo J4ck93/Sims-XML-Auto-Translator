@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            button1 = new Button();
+            btnImport = new Button();
             menuStrip1 = new MenuStrip();
             fileToolStrip = new ToolStripMenuItem();
             importToolStrip = new ToolStripMenuItem();
@@ -44,7 +44,7 @@
             helpToolStrip = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripSeparator();
             aboutToolStrip = new ToolStripMenuItem();
-            button2 = new Button();
+            btnExport = new Button();
             label1 = new Label();
             label2 = new Label();
             cbSourceLanguage = new ComboBox();
@@ -52,14 +52,15 @@
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // btnImport
             // 
-            button1.Location = new Point(19, 34);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 32);
-            button1.TabIndex = 0;
-            button1.Text = "Import XML";
-            button1.UseVisualStyleBackColor = true;
+            btnImport.Location = new Point(19, 34);
+            btnImport.Name = "btnImport";
+            btnImport.Size = new Size(102, 32);
+            btnImport.TabIndex = 0;
+            btnImport.Text = "Import XML";
+            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += btnImport_Click;
             // 
             // menuStrip1
             // 
@@ -80,26 +81,27 @@
             // importToolStrip
             // 
             importToolStrip.Name = "importToolStrip";
-            importToolStrip.Size = new Size(180, 22);
+            importToolStrip.Size = new Size(137, 22);
             importToolStrip.Text = "Import XML";
             importToolStrip.Click += importToolStrip_Click;
             // 
             // exportToolStrip
             // 
+            exportToolStrip.Enabled = false;
             exportToolStrip.Name = "exportToolStrip";
-            exportToolStrip.Size = new Size(180, 22);
+            exportToolStrip.Size = new Size(137, 22);
             exportToolStrip.Text = "Export XML";
             exportToolStrip.Click += exportToolStrip_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(177, 6);
+            toolStripMenuItem1.Size = new Size(134, 6);
             // 
             // exitToolStrip
             // 
             exitToolStrip.Name = "exitToolStrip";
-            exitToolStrip.Size = new Size(180, 22);
+            exitToolStrip.Size = new Size(137, 22);
             exitToolStrip.Text = "Exit";
             exitToolStrip.Click += exitToolStrip_Click;
             // 
@@ -113,14 +115,14 @@
             // usageToolStrip
             // 
             usageToolStrip.Name = "usageToolStrip";
-            usageToolStrip.Size = new Size(180, 22);
+            usageToolStrip.Size = new Size(142, 22);
             usageToolStrip.Text = "Check Usage";
             usageToolStrip.Click += usageToolStrip_Click;
             // 
             // settingToolStrip
             // 
             settingToolStrip.Name = "settingToolStrip";
-            settingToolStrip.Size = new Size(180, 22);
+            settingToolStrip.Size = new Size(142, 22);
             settingToolStrip.Text = "Settings";
             settingToolStrip.Click += settingToolStrip_Click;
             // 
@@ -157,15 +159,16 @@
             aboutToolStrip.Text = "About";
             aboutToolStrip.Click += aboutToolStrip_Click;
             // 
-            // button2
+            // btnExport
             // 
-            button2.Enabled = false;
-            button2.Location = new Point(159, 34);
-            button2.Name = "button2";
-            button2.Size = new Size(102, 32);
-            button2.TabIndex = 2;
-            button2.Text = "Export XML";
-            button2.UseVisualStyleBackColor = true;
+            btnExport.Enabled = false;
+            btnExport.Location = new Point(159, 34);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(102, 32);
+            btnExport.TabIndex = 2;
+            btnExport.Text = "Export XML";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
             // 
             // label1
             // 
@@ -212,8 +215,8 @@
             Controls.Add(cbSourceLanguage);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnExport);
+            Controls.Add(btnImport);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
@@ -228,7 +231,7 @@
         }
 
         #endregion
-        private Button button1;
+        private Button btnImport;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStrip;
         private ToolStripMenuItem importToolStrip;
@@ -243,7 +246,7 @@
         private ToolStripMenuItem helpToolStrip;
         private ToolStripSeparator toolStripMenuItem2;
         private ToolStripMenuItem aboutToolStrip;
-        private Button button2;
+        private Button btnExport;
         private Label label1;
         private Label label2;
         private ComboBox cbSourceLanguage;

@@ -41,6 +41,6 @@ namespace Sims_XML_Auto_Translator
             }
         }
 
-        
+
     }
 }

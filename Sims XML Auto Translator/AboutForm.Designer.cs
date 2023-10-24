@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             richTextBox1 = new RichTextBox();
             richTextBox2 = new RichTextBox();
             richTextBox3 = new RichTextBox();
@@ -62,7 +63,7 @@
             richTextBox3.ReadOnly = true;
             richTextBox3.Size = new Size(521, 39);
             richTextBox3.TabIndex = 2;
-            richTextBox3.Text = "Mods and Modpacks translated with Sims XML Auto Translator:\nhttps://patreon.com/LibDoi";
+            richTextBox3.Text = "Mods and Modpacks translated with Sims XML Auto Translator:\nhttps://patreon.com/derNeonLeon";
             richTextBox3.LinkClicked += richTextBox_LinkClicked;
             // 
             // AboutForm
@@ -74,8 +75,9 @@
             Controls.Add(richTextBox2);
             Controls.Add(richTextBox1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AboutForm";
-            Text = "AboutForm";
+            Text = "About";
             Load += AboutForm_Load;
             ResumeLayout(false);
         }
