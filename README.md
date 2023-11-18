@@ -71,6 +71,6 @@ If you encounter any issues or have any questions about this tool, please open a
 
 Below is a list of some creators that have been translated using the Sims XML Auto Translator:
 
-[Sims 4 Hidden Collection (Modpack)](https://www.patreon.com/LibDoi)
+[Sims 4 Hidden Collection (Modpack)](https://www.patreon.com/derNeonLeon)
 
 If you have used this tool to translate a mod and would like it listed here, please open a pull request with the necessary information.
