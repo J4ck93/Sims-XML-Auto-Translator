@@ -37,6 +37,7 @@ target_languages = {
     'ES': 'Español',
     'FR': 'Français',
     'IT': 'Italiano',
+    'ID': 'Indonesian',
     'NL': 'Nederlands',
     'NB': 'Norsk',
     'PL': 'Polski',
